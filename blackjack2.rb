@@ -27,7 +27,7 @@ def display_hand(hand, dealer = '')
   puts
 end
 
-# start of game 
+# start of game
 puts "Welcome to Blackjack!"
 puts "Dealer stays on 17"
 puts "Press enter to continue"
@@ -35,7 +35,6 @@ gets
 SUITS = %w(H S C D)
 VALUES = %w(2 3 4 5 6 7 8 9 10 J Q K A)
 BLACKJACK = 21
-system 'clear'
 play_again = ''
 deck = VALUES.product(SUITS).shuffle!
 while play_again != 'n'
