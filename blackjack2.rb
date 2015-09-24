@@ -59,10 +59,9 @@ while play_again != 'n'
     natural_blackjack = true
   else
     while calculate_total(player_hand) < BLACKJACK
-      begin
-        puts "Hit or stay?(h/s)"
-        choice = gets.chomp.downcase
-      end until %w(h s).include?(choice)
+      puts "Hit or stay?(h/s)"
+      choice = gets.chomp.downcase
+      next unless ['h', 's'].include?(choice)
       break if choice == 's'
       system 'clear'
       player_hand << deck.pop
@@ -72,7 +71,7 @@ while play_again != 'n'
       p dealer_hand[1]
     end
   end
-  # dealer_turn
+  # dealer turn
   if (calculate_total(player_hand) <= BLACKJACK) && !natural_blackjack
     puts "Press enter to see Dealer's hidden card"
     gets
@@ -103,7 +102,7 @@ while play_again != 'n'
   loop do
     puts "Play again?(y/n)"
     play_again = gets.chomp.downcase
-    break if %w(y n).include?(play_again)
+    break if ['y', 'n'].include?(play_again)
   end
 end
 
