@@ -27,7 +27,7 @@ def display_hand(hand, dealer = '')
   puts
 end
 
-system 'clear'
+# start of game 
 puts "Welcome to Blackjack!"
 puts "Dealer stays on 17"
 puts "Press enter to continue"
