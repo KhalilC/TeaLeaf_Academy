@@ -92,18 +92,74 @@ class Blackjack
     total
   end 
 
-  def play
-    display_intro
-    # deal card to player and dealer
-    2.times do 
-      player.hand << deal_card
-      dealer.hand << deal_card
-    end
-    display_hand(player.hand, player)
-    display_hand(dealer.hand, dealer)
-
+  def busted?(player_or_dealer)
+    calculate_total(player_or_dealer.hand) > 21
   end
 
+  def player_turn
+    loop do
+      begin
+      puts "Hit or Stay?(h/s)"
+      choice = gets.chomp.downcase
+      end until ['h', 's'].include?(choice)
+      if choice == 'h'
+        system 'clear'
+        player.hand << deal_card
+        display_hand(player.hand, player)
+      end
+      break if choice == 's' || busted?(player)
+    end
+  end
+
+  def dealer_turn
+    loop do
+      break if calculate_total(dealer.hand) >= 17
+      puts "Press enter to see dealer's next card"
+      gets.chomp
+      dealer.hand << deal_card
+      system 'clear'
+      display_hand(dealer.hand, dealer)
+    end
+  end
+
+  def win_lose_draw
+    return "You busted!" if calculate_total(player.hand) > 21
+    return "Dealer busted!" if calculate_total(dealer.hand) > 21
+    return "You win!  You have #{calculate_total(player.hand)} and dealer has #{calculate_total(dealer.hand)}" if calculate_total(player.hand) > calculate_total(dealer.hand)
+    return "It's a tie.  You and dealer both have #{calculate_total(player.hand)}" if calculate_total(player.hand) == calculate_total(dealer.hand)
+    return "You lose!  Dealer has #{calculate_total(dealer.hand)} and you have #{calculate_total(player.hand)}"
+  end
+
+  def play_again?
+    begin
+      puts "Play again?(y/n)?"
+      answer = gets.chomp.downcase
+    end until ['y','n'].include?(answer)
+    answer
+  end
+
+  def play
+    display_intro
+    loop do
+      player.hand = []
+      dealer.hand = []
+      2.times do 
+        player.hand << deal_card
+        dealer.hand << deal_card
+      end
+      system 'clear'
+      display_hand(player.hand, player)
+      display_hand(dealer.hand, dealer)
+      player_turn
+      dealer_turn unless busted?(player)
+      system 'clear'
+      display_hand(player.hand, player)
+      display_hand(dealer.hand, dealer)
+      puts win_lose_draw
+      break if play_again? == 'n'
+    end
+    puts "Thanks for playing.  Goodbye!"
+  end
 end
 
 game = Blackjack.new
