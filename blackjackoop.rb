@@ -52,9 +52,16 @@ end
 class Blackjack
   attr_accessor :player, :dealer, :deck
   def initialize
-    @player = Player.new("Khalil")
+    display_intro
+    @player = Player.new(get_player_name)
     @dealer = Player.new("Dealer")
     @deck = Deck.new
+  end
+
+  def get_player_name
+    puts "What is your name?"
+    answer = gets.chomp
+    answer
   end
 
   def display_intro
@@ -121,7 +128,7 @@ class Blackjack
       display_hand(dealer.hand, dealer)
     end
   end
-
+  # outcome of game
   def win_lose_draw
     return "You busted!" if calculate_total(player.hand) > 21
     return "Dealer busted!" if calculate_total(dealer.hand) > 21
@@ -139,7 +146,6 @@ class Blackjack
   end
 
   def play
-    display_intro
     loop do
       player.hand = []
       dealer.hand = []
