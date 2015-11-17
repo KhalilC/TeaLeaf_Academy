@@ -136,7 +136,6 @@ class Blackjack
     return "It's a tie.  You and dealer both have #{calculate_total(player.hand)}" if calculate_total(player.hand) == calculate_total(dealer.hand)
     return "You lose!  Dealer has #{calculate_total(dealer.hand)} and you have #{calculate_total(player.hand)}"
   end
-
   def play_again?
     begin
       puts "Play again?(y/n)?"
@@ -144,7 +143,7 @@ class Blackjack
     end until ['y','n'].include?(answer)
     answer
   end
-
+  #main play loop
   def play
     loop do
       player.hand = []
