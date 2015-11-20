@@ -143,7 +143,7 @@ class Blackjack
     end until ['y','n'].include?(answer)
     answer
   end
-  #main play loop
+  
   def play
     loop do
       player.hand = []
