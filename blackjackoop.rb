@@ -152,7 +152,6 @@ class Blackjack
         player.hand << deal_card
         dealer.hand << deal_card
       end
-      #can this be refactored?
       system 'clear'
       display_hand(player.hand, player)
       display_hand(dealer.hand, dealer)
